@@ -128,3 +128,51 @@
         </tbody>
     </table>
 </div>
+<style>
+    .text-center {
+        max-width: 400px;
+        margin: 3rem auto;
+        background: linear-gradient(135deg, #007bff,rgb(245, 229, 4) , #28a745); 
+        padding: 1.5rem;
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    input.form-control {
+        font-size: 2rem;
+        text-align: right;
+        font-weight: 600;
+        border-radius: 10px;
+        border: 2px solid #ced4da;
+        margin-bottom: 1rem;
+        background-color: #fff;
+        color: #000;
+    }
+
+    button {
+        font-size: 1.3rem;
+        padding: 0.75rem;
+        border-radius: 12px;
+        width: 100%;
+    }
+
+    .table td {
+        padding: 0.3rem;
+    }
+
+    @media (max-width: 450px) {
+        .text-center {
+            width: 95%;
+            margin: 2rem auto;
+        }
+
+        input.form-control {
+            font-size: 1.5rem;
+        }
+
+        button {
+            font-size: 1.1rem;
+            padding: 0.6rem;
+        }
+    }
+</style>
