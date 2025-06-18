@@ -1,27 +1,55 @@
-<script>
-    import{dicionario} from '$lib/dicionario.js';
-    let palavra = '';
-    let filtradas=$state(dicionario)
-    function buscar() {
-        if ((palavra =='')) {
-            filtradas = dicionario;
-            return;
-        } 
-        filtradas = [];
-        for(const termo of dicionario) {
-            if (termo.palavra.startsWith(palavra)) {
-                filtradas.push(termo);
-            }
-        }
+
+    <script>
+    import { dicionario, palavras, getRandomWord } from '$lib/dicio/data.js';
+    import { onMount } from 'svelte';
+    import { goto } from '$app/navigation';
+  
+    let termo = '';
+    let filtro = '';
+    let palavraDoDia = '';
+    let filtradas = [];
+  
+    onMount(() => {
+      palavraDoDia = getRandomWord();
+      aplicarFiltro();
+    });
+  
+    function aplicarFiltro() {
+      filtradas = palavras.filter(p => p.startsWith(filtro));
     }
-</script>
-<div><input placeholder="digite uma palavra" oninput ={buscar} bind:value={palavra}></div>
-<div>
-    <ol>
-    {#each filtradas as termo}
-    
-       <li><a href="/paginas/dicionario/{termo.palavra}">{termo?.palavra}</a></li>
-    
-    {/each}
-</ol>
-</div>
+  
+    function buscar() {
+      if (termo in dicionario) {
+        goto(`/dicionario/${termo}`);
+      }
+    }
+  
+    function irPara(p) {
+      goto(`/dicionario/${p}`);
+    }
+  </script>
+  
+  <h1>Dicionário</h1>
+  
+  <section>
+    <h2>Palavra do Dia: <a on:click={() => irPara(palavraDoDia)}>{palavraDoDia}</a></h2>
+  </section>
+  
+  <section>
+    <input bind:value={termo} placeholder="Digite uma palavra..." />
+    <button on:click={buscar}>Buscar</button>
+  
+    <br><br>
+  
+    <input bind:value={filtro} placeholder="Filtro por prefixo (ex: ab)" on:input={aplicarFiltro} />
+  </section>
+  
+  <section>
+    <h3>Palavras ({filtradas.length})</h3>
+    <ul>
+      {#each filtradas as p}
+        <li><a on:click={() => irPara(p)}>{p}</a></li>
+      {/each}
+    </ul>
+  </section>
+  

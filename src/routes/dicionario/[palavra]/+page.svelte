@@ -1,24 +1,44 @@
 <script>
-    import { dicionario } from '$lib/dicionario.js';
-    import { page } from '$app/stores';
-    import { onMount } from 'svelte';
+    export let data;
+    import { goto } from '$app/navigation';
+    import { dicionario as baseDicionario } from '$lib/dicio/data.js';
   
-    let termoSelecionado;
+    let partes = [];
   
-    $: palavraParam = $page.params.palavra;
+    if (data.definicao) {
+      partes = data.definicao.split(/\b/);
+    }
   
-    onMount(() => {
-      termoSelecionado = dicionario.find(t => t.palavra === palavraParam);
-    });
+    function clicarPalavra(p) {
+      const termo = p.toLowerCase();
+      if (termo in baseDicionario) {
+        goto(`/dicionario/${termo}`);
+      }
+    }
+
+    function voltar() {
+        if (history.lenght > 1){
+            history.back();
+        } else {
+            goto('/dicionario');
+        }
+    }
   </script>
+
+  <button on:click={voltar} style="margin-top: 1rem;"> Voltar </button>
   
-  {#if termoSelecionado}
-    <h1>{termoSelecionado.palavra}</h1>
-    <ol>
-      {#each termoSelecionado.definicoes as definicao}
-        <li>{definicao}</li>
+  <h1>{data.termo}</h1>
+  
+  {#if data.definicao}
+    <p>
+      {#each partes as parte}
+        {#if parte.toLowerCase() in baseDicionario}
+          <a on:click={() => clicarPalavra(parte)} style="cursor:pointer; color:blue;">{parte}</a>
+        {:else}
+          {parte}
+        {/if}
       {/each}
-    </ol>
+    </p>
   {:else}
-    <p>Palavra não encontrada.</p>
+    <p>Palavra não encontrada no dicionário.</p>
   {/if}
