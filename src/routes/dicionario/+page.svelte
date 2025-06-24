@@ -134,7 +134,7 @@
 
   <section>
     <h2>
-      Palavra do Dia: 
+      Palavrões do Dia: 
       <a on:click={() => irPara(palavraDoDia)}>{palavraDoDia}</a>
     </h2>
   </section>
