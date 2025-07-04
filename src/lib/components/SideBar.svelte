@@ -13,6 +13,7 @@
         <li class="nav-item"><a class="nav-link active" href="/calc">Calc</a></li>
         <li class="nav-item"><a class="nav-link active" href="/dicionario">Dicionário</a></li>
         <li class="nav-item"><a class="nav-link active" href="/tigrinho">Tigrinho</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/prova">Prova</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown">Dropdown</a>
           <ul class="dropdown-menu">
